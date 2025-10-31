@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
+import { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -12,14 +12,16 @@ import {
   SelectValue,
 } from './ui/select';
 import { mockAssetTypes, mockDepartments } from '../lib/mockData';
+import { Asset } from '../types';
 import { toast } from 'sonner@2.0.3';
 
 interface AssetFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  asset?: Asset | null;
 }
 
-export function AssetFormDialog({ open, onOpenChange }: AssetFormDialogProps) {
+export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogProps) {
   const [formData, setFormData] = useState({
     code: '',
     name: '',
@@ -31,6 +33,36 @@ export function AssetFormDialog({ open, onOpenChange }: AssetFormDialogProps) {
     image: null as File | null,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  // Populate form when editing
+  useEffect(() => {
+    if (asset && open) {
+      setFormData({
+        code: asset.code,
+        name: asset.name,
+        typeId: asset.typeId,
+        departmentId: asset.departmentId || '',
+        purchaseDate: asset.purchaseDate,
+        value: asset.value.toString(),
+        description: asset.description,
+        image: null,
+      });
+      setImagePreview(asset.imageUrl || null);
+    } else if (!asset && open) {
+      // Reset form when creating new
+      setFormData({
+        code: '',
+        name: '',
+        typeId: '',
+        departmentId: '',
+        purchaseDate: '',
+        value: '',
+        description: '',
+        image: null,
+      });
+      setImagePreview(null);
+    }
+  }, [asset, open]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,27 +112,28 @@ export function AssetFormDialog({ open, onOpenChange }: AssetFormDialogProps) {
     }
 
     // Here you would normally save to backend
-    // When saved: status = IN_STOCK, add history entry "CREATED"
-    toast.success('Tài sản đã được tạo thành công với trạng thái "Trong kho"');
+    if (asset) {
+      // Update existing asset
+      toast.success(`Tài sản ${formData.code} đã được cập nhật thành công`);
+    } else {
+      // Create new asset - status = IN_STOCK, add history entry "CREATED"
+      toast.success('Tài sản đã được tạo thành công với trạng thái "Trong kho"');
+    }
+    
     onOpenChange(false);
-    setFormData({
-      code: '',
-      name: '',
-      typeId: '',
-      departmentId: '',
-      purchaseDate: '',
-      value: '',
-      description: '',
-      image: null,
-    });
-    setImagePreview(null);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Thêm tài sản mới</DialogTitle>
+          <DialogTitle>{asset ? 'Chỉnh sửa tài sản' : 'Thêm tài sản mới'}</DialogTitle>
+          <DialogDescription>
+            {asset 
+              ? 'Cập nhật thông tin tài sản trong hệ thống' 
+              : 'Điền thông tin để tạo tài sản mới trong hệ thống'
+            }
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit}>
@@ -114,6 +147,7 @@ export function AssetFormDialog({ open, onOpenChange }: AssetFormDialogProps) {
                 value={formData.code}
                 onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                 placeholder="VD: LT-001"
+                disabled={!!asset}
               />
             </div>
 
@@ -224,7 +258,7 @@ export function AssetFormDialog({ open, onOpenChange }: AssetFormDialogProps) {
               Hủy
             </Button>
             <Button type="submit" className="bg-blue-600">
-              Tạo tài sản
+              {asset ? 'Cập nhật' : 'Tạo tài sản'}
             </Button>
           </DialogFooter>
         </form>

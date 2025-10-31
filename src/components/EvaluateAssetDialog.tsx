@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
@@ -35,6 +35,9 @@ export function EvaluateAssetDialog({ asset, open, onOpenChange }: EvaluateAsset
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Đánh giá tài sản</DialogTitle>
+          <DialogDescription>
+            Đánh giá tình trạng hiện tại của tài sản
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">

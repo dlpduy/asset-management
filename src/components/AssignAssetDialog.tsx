@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
@@ -88,6 +88,9 @@ export function AssignAssetDialog({ asset, open, onOpenChange }: AssignAssetDial
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Gán tài sản</DialogTitle>
+          <DialogDescription>
+            Chọn phòng ban và nhân viên để gán tài sản
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">

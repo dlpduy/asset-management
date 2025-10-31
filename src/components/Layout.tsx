@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -11,12 +11,14 @@ import {
   X,
   User,
   LogOut,
+  Layers,
 } from 'lucide-react';
 import { NotificationBell } from './NotificationBell';
 import { ChatbotWidget } from './ChatbotWidget';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { UserRole, User as UserType } from '../types';
 import { getRoleLabel } from '../lib/utils';
+import { useSettings } from '../contexts/SettingsContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,11 +37,18 @@ interface LayoutProps {
 export function Layout({ children, currentUser, onLogout }: LayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { sidebarVisible, chatbotEnabled } = useSettings();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Sync local state with settings context
+  useEffect(() => {
+    setSidebarOpen(sidebarVisible);
+  }, [sidebarVisible]);
 
   const navigation = [
     { name: 'Dashboard', href: '/', icon: LayoutDashboard, roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF] },
     { name: 'Tài sản', href: '/assets', icon: Package, roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.STAFF] },
+    { name: 'Loại tài sản', href: '/asset-types', icon: Layers, roles: [UserRole.ADMIN] },
     { name: 'Người dùng', href: '/users', icon: Users, roles: [UserRole.ADMIN] },
     { name: 'Phòng ban', href: '/departments', icon: Building2, roles: [UserRole.ADMIN] },
     { name: 'Báo cáo', href: '/reports', icon: BarChart3, roles: [UserRole.ADMIN, UserRole.MANAGER] },
@@ -66,24 +75,24 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
             >
-              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {sidebarOpen ? <X className="w-5 h-5 dark:text-gray-300" /> : <Menu className="w-5 h-5 dark:text-gray-300" />}
             </button>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Package className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-gray-900">Quản lý Tài sản</h1>
-                <p className="text-xs text-gray-500">{getRoleLabel(currentUser.role)}</p>
+                <h1 className="text-gray-900 dark:text-gray-50">Quản lý Tài sản</h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{getRoleLabel(currentUser.role)}</p>
               </div>
             </div>
           </div>
@@ -92,10 +101,10 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
             <NotificationBell />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-3 hover:bg-gray-50 rounded-lg p-2 transition-colors">
+                <button className="flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg p-2 transition-colors">
                   <div className="text-right">
-                    <p className="text-sm text-gray-900">{currentUser.name}</p>
-                    <p className="text-xs text-gray-500">{currentUser.email}</p>
+                    <p className="text-sm text-gray-900 dark:text-gray-50">{currentUser.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{currentUser.email}</p>
                   </div>
                   <Avatar>
                     <AvatarFallback className="bg-blue-600 text-white">
@@ -107,8 +116,8 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>
                   <div>
-                    <p className="text-gray-900">{currentUser.name}</p>
-                    <p className="text-xs text-gray-500">{getRoleLabel(currentUser.role)}</p>
+                    <p className="text-gray-900 dark:text-gray-50">{currentUser.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{getRoleLabel(currentUser.role)}</p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -129,7 +138,7 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ${
+        className={`fixed left-0 top-16 bottom-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -144,8 +153,8 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
                 to={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   active
-                    ? 'bg-blue-50 text-blue-600'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -168,7 +177,7 @@ export function Layout({ children, currentUser, onLogout }: LayoutProps) {
       </main>
 
       {/* Chatbot Widget */}
-      <ChatbotWidget />
+      {chatbotEnabled && <ChatbotWidget />}
     </div>
   );
 }

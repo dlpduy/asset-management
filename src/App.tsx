@@ -5,12 +5,14 @@ import { Layout } from './components/Layout';
 import { Login } from './components/Login';
 import { Dashboard } from './components/Dashboard';
 import { Assets } from './components/Assets';
+import { AssetTypes } from './components/AssetTypes';
 import { Users } from './components/Users';
 import { Departments } from './components/Departments';
 import { Reports } from './components/Reports';
 import { Settings } from './components/Settings';
 import { UserProfile } from './components/UserProfile';
 import { AuthProvider } from './contexts/AuthContext';
+import { SettingsProvider } from './contexts/SettingsContext';
 import { mockUsers } from './lib/mockData';
 import { User, UserRole } from './types';
 
@@ -64,29 +66,60 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider currentUser={currentUser}>
-        <Layout currentUser={currentUser} onLogout={handleLogout}>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/assets" element={<Assets />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/departments" element={<Departments />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route 
-              path="/profile" 
-              element={
-                <UserProfile 
-                  currentUser={currentUser} 
-                  onUpdateProfile={handleUpdateProfile}
-                />
-              } 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Layout>
-        <Toaster position="top-right" />
-      </AuthProvider>
+      <SettingsProvider>
+        <AuthProvider currentUser={currentUser}>
+          <Layout currentUser={currentUser} onLogout={handleLogout}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/assets" element={<Assets />} />
+              <Route 
+                path="/asset-types" 
+                element={
+                  currentUser.role === UserRole.ADMIN 
+                    ? <AssetTypes /> 
+                    : <Navigate to="/" replace />
+                } 
+              />
+              <Route 
+                path="/users" 
+                element={
+                  currentUser.role === UserRole.ADMIN 
+                    ? <Users /> 
+                    : <Navigate to="/" replace />
+                } 
+              />
+              <Route 
+                path="/departments" 
+                element={
+                  currentUser.role === UserRole.ADMIN 
+                    ? <Departments /> 
+                    : <Navigate to="/" replace />
+                } 
+              />
+              <Route path="/reports" element={<Reports />} />
+              <Route 
+                path="/settings" 
+                element={
+                  currentUser.role === UserRole.ADMIN 
+                    ? <Settings /> 
+                    : <Navigate to="/" replace />
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <UserProfile 
+                    currentUser={currentUser} 
+                    onUpdateProfile={handleUpdateProfile}
+                  />
+                } 
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Layout>
+          <Toaster position="top-right" />
+        </AuthProvider>
+      </SettingsProvider>
     </BrowserRouter>
   );
 }

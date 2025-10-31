@@ -1,10 +1,10 @@
 import { Package, Users, Building2, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import {
-  mockAssets,
-  mockUsers,
-  mockDepartments
+import { 
+  mockAssets, 
+  mockUsers, 
+  mockDepartments 
 } from '../lib/mockData';
 import { AssetStatus, UserRole } from '../types';
 import { formatCurrency, getStatusLabel, getStatusColor } from '../lib/utils';
@@ -25,14 +25,14 @@ import {
 
 export function Dashboard() {
   const { currentUser } = useAuth();
-
+  
   // Filter assets based on user role
   const userAssets = !currentUser ? [] :
     currentUser.role === UserRole.ADMIN
-      ? mockAssets
-      : currentUser.role === UserRole.MANAGER
-        ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
-        : mockAssets.filter(a => a.assignedTo === currentUser.id);
+    ? mockAssets
+    : currentUser.role === UserRole.MANAGER
+    ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
+    : mockAssets.filter(a => a.assignedTo === currentUser.id);
 
   const totalAssets = userAssets.length;
   const totalValue = userAssets.reduce((sum, asset) => sum + asset.value, 0);
@@ -65,55 +65,55 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-gray-900">Dashboard</h1>
-        <p className="text-gray-600">Tổng quan quản lý tài sản</p>
+        <h1 className="text-gray-900 dark:text-gray-50">Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400">Tổng quan quản lý tài sản</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm text-gray-600">Tổng tài sản</CardTitle>
-            <Package className="w-4 h-4 text-gray-400" />
+            <CardTitle className="text-sm text-gray-600 dark:text-gray-400">Tổng tài sản</CardTitle>
+            <Package className="w-4 h-4 text-gray-400 dark:text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl text-gray-900">{totalAssets}</div>
-            <p className="text-xs text-gray-600 mt-1">
-              {currentUser?.role === UserRole.STAFF ? 'Được giao cho bạn' : 'Trong hệ thống'}
+            <div className="text-2xl text-gray-900 dark:text-gray-50">{totalAssets}</div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+              {currentUser.role === UserRole.STAFF ? 'Được giao cho bạn' : 'Trong hệ thống'}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm text-gray-600">Tổng giá trị</CardTitle>
-            <TrendingUp className="w-4 h-4 text-gray-400" />
+            <CardTitle className="text-sm text-gray-600 dark:text-gray-400">Tổng giá trị</CardTitle>
+            <TrendingUp className="w-4 h-4 text-gray-400 dark:text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl text-gray-900">{formatCurrency(totalValue)}</div>
-            <p className="text-xs text-gray-600 mt-1">Tổng giá trị tài sản</p>
+            <div className="text-2xl text-gray-900 dark:text-gray-50">{formatCurrency(totalValue)}</div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Tổng giá trị tài sản</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm text-gray-600">Trong kho</CardTitle>
-            <Package className="w-4 h-4 text-gray-400" />
+            <CardTitle className="text-sm text-gray-600 dark:text-gray-400">Trong kho</CardTitle>
+            <Package className="w-4 h-4 text-gray-400 dark:text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl text-gray-900">{inStockCount}</div>
-            <p className="text-xs text-gray-600 mt-1">Chưa gán cho ai</p>
+            <div className="text-2xl text-gray-900 dark:text-gray-50">{inStockCount}</div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Chưa gán cho ai</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm text-gray-600">Đang sử dụng</CardTitle>
-            <Users className="w-4 h-4 text-gray-400" />
+            <CardTitle className="text-sm text-gray-600 dark:text-gray-400">Đang sử dụng</CardTitle>
+            <Users className="w-4 h-4 text-gray-400 dark:text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl text-gray-900">{inUseCount}</div>
-            <p className="text-xs text-gray-600 mt-1">Đã gán cho nhân viên</p>
+            <div className="text-2xl text-gray-900 dark:text-gray-50">{inUseCount}</div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">Đã gán cho nhân viên</p>
           </CardContent>
         </Card>
       </div>
@@ -121,10 +121,10 @@ export function Dashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Department Stats */}
-        {(currentUser?.role === UserRole.ADMIN || currentUser?.role === UserRole.MANAGER) && (
+        {(currentUser.role === UserRole.ADMIN || currentUser.role === UserRole.MANAGER) && (
           <Card>
             <CardHeader>
-              <CardTitle>Tài sản theo phòng ban</CardTitle>
+              <CardTitle className="text-gray-900 dark:text-gray-50">Tài sản theo phòng ban</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -143,7 +143,7 @@ export function Dashboard() {
         {/* Status Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle>Phân bổ theo trạng thái</CardTitle>
+            <CardTitle className="text-gray-900 dark:text-gray-50">Phân bổ theo trạng thái</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -173,29 +173,29 @@ export function Dashboard() {
       {/* Recent Assets */}
       <Card>
         <CardHeader>
-          <CardTitle>Tài sản mới nhất</CardTitle>
+          <CardTitle className="text-gray-900 dark:text-gray-50">Tài sản mới nhất</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {recentAssets.map((asset) => {
               const assignedUser = mockUsers.find(u => u.id === asset.assignedTo);
               const department = mockDepartments.find(d => d.id === asset.departmentId);
-
+              
               return (
-                <div key={asset.id} className="flex items-center justify-between py-3 border-b last:border-b-0">
+                <div key={asset.id} className="flex items-center justify-between py-3 border-b last:border-b-0 dark:border-gray-800">
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center">
-                        <Package className="w-5 h-5 text-gray-600" />
+                      <div className="w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center">
+                        <Package className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       </div>
                       <div>
-                        <p className="text-gray-900">{asset.name}</p>
+                        <p className="text-gray-900 dark:text-gray-50">{asset.name}</p>
                         <div className="flex items-center gap-2 mt-1">
-                          <p className="text-sm text-gray-600">{asset.code}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{asset.code}</p>
                           {department && (
                             <>
-                              <span className="text-gray-400">•</span>
-                              <p className="text-sm text-gray-600">{department.name}</p>
+                              <span className="text-gray-400 dark:text-gray-600">•</span>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{department.name}</p>
                             </>
                           )}
                         </div>
@@ -207,7 +207,7 @@ export function Dashboard() {
                       {getStatusLabel(asset.status)}
                     </Badge>
                     {assignedUser && (
-                      <p className="text-sm text-gray-600">{assignedUser.name}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{assignedUser.name}</p>
                     )}
                   </div>
                 </div>

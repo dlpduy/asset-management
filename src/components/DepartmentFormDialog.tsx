@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -67,6 +67,9 @@ export function DepartmentFormDialog({ open, onOpenChange, department }: Departm
           <DialogTitle>
             {department ? 'Chỉnh sửa phòng ban' : 'Thêm phòng ban mới'}
           </DialogTitle>
+          <DialogDescription>
+            {department ? 'Cập nhật thông tin phòng ban' : 'Tạo phòng ban mới trong tổ chức'}
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit}>

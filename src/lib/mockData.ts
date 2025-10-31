@@ -14,7 +14,7 @@ import {
   Role
 } from '../types';
 
-// Mock Users
+// Mock Users - Extended data for pagination demo
 export const mockUsers: User[] = [
   {
     id: '1',
@@ -27,7 +27,7 @@ export const mockUsers: User[] = [
   },
   {
     id: '2',
-    name: 'Trần Thị Manager',
+    name: 'Trần Thị Manager IT',
     email: 'manager.it@company.com',
     role: UserRole.MANAGER,
     departmentId: '1',
@@ -36,8 +36,8 @@ export const mockUsers: User[] = [
   },
   {
     id: '3',
-    name: 'Lê Văn Staff',
-    email: 'staff1@company.com',
+    name: 'Lê Văn Hùng',
+    email: 'hung.le@company.com',
     role: UserRole.STAFF,
     departmentId: '1',
     isActive: true,
@@ -45,7 +45,7 @@ export const mockUsers: User[] = [
   },
   {
     id: '4',
-    name: 'Phạm Thị Manager',
+    name: 'Phạm Thị Manager HR',
     email: 'manager.hr@company.com',
     role: UserRole.MANAGER,
     departmentId: '2',
@@ -54,16 +54,286 @@ export const mockUsers: User[] = [
   },
   {
     id: '5',
-    name: 'Hoàng Văn Staff',
-    email: 'staff2@company.com',
+    name: 'Hoàng Văn Nam',
+    email: 'nam.hoang@company.com',
     role: UserRole.STAFF,
     departmentId: '2',
     isActive: true,
     createdAt: new Date('2024-01-15'),
   },
+  {
+    id: '6',
+    name: 'Trần Minh Tuấn',
+    email: 'tuan.tran@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: true,
+    createdAt: new Date('2024-02-01'),
+  },
+  {
+    id: '7',
+    name: 'Nguyễn Thị Lan',
+    email: 'lan.nguyen@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-02-05'),
+  },
+  {
+    id: '8',
+    name: 'Phạm Văn Đức',
+    email: 'duc.pham@company.com',
+    role: UserRole.STAFF,
+    departmentId: '4',
+    isActive: true,
+    createdAt: new Date('2024-02-10'),
+  },
+  {
+    id: '9',
+    name: 'Lê Thị Hương',
+    email: 'huong.le@company.com',
+    role: UserRole.MANAGER,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-02-12'),
+  },
+  {
+    id: '10',
+    name: 'Võ Minh Khoa',
+    email: 'khoa.vo@company.com',
+    role: UserRole.STAFF,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-02-15'),
+  },
+  {
+    id: '11',
+    name: 'Đặng Thị Mai',
+    email: 'mai.dang@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: true,
+    createdAt: new Date('2024-02-20'),
+  },
+  {
+    id: '12',
+    name: 'Bùi Văn Sơn',
+    email: 'son.bui@company.com',
+    role: UserRole.STAFF,
+    departmentId: '2',
+    isActive: true,
+    createdAt: new Date('2024-03-01'),
+  },
+  {
+    id: '13',
+    name: 'Ngô Thị Linh',
+    email: 'linh.ngo@company.com',
+    role: UserRole.MANAGER,
+    departmentId: '4',
+    isActive: true,
+    createdAt: new Date('2024-03-05'),
+  },
+  {
+    id: '14',
+    name: 'Trương Văn Hải',
+    email: 'hai.truong@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-03-10'),
+  },
+  {
+    id: '15',
+    name: 'Đinh Thị Thu',
+    email: 'thu.dinh@company.com',
+    role: UserRole.STAFF,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-03-12'),
+  },
+  {
+    id: '16',
+    name: 'Phan Văn Long',
+    email: 'long.phan@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: true,
+    createdAt: new Date('2024-03-15'),
+  },
+  {
+    id: '17',
+    name: 'Dương Thị Hà',
+    email: 'ha.duong@company.com',
+    role: UserRole.STAFF,
+    departmentId: '2',
+    isActive: true,
+    createdAt: new Date('2024-03-20'),
+  },
+  {
+    id: '18',
+    name: 'Lý Văn Tài',
+    email: 'tai.ly@company.com',
+    role: UserRole.MANAGER,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-03-25'),
+  },
+  {
+    id: '19',
+    name: 'Vũ Thị Nga',
+    email: 'nga.vu@company.com',
+    role: UserRole.STAFF,
+    departmentId: '4',
+    isActive: true,
+    createdAt: new Date('2024-04-01'),
+  },
+  {
+    id: '20',
+    name: 'Cao Văn Thắng',
+    email: 'thang.cao@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-04-05'),
+  },
+  {
+    id: '21',
+    name: 'Nguyễn Thị Vân',
+    email: 'van.nguyen@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: false,
+    createdAt: new Date('2024-04-10'),
+  },
+  {
+    id: '22',
+    name: 'Trần Văn Phong',
+    email: 'phong.tran@company.com',
+    role: UserRole.STAFF,
+    departmentId: '2',
+    isActive: true,
+    createdAt: new Date('2024-04-12'),
+  },
+  {
+    id: '23',
+    name: 'Lê Thị Thanh',
+    email: 'thanh.le@company.com',
+    role: UserRole.STAFF,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-04-15'),
+  },
+  {
+    id: '24',
+    name: 'Hoàng Văn Quân',
+    email: 'quan.hoang@company.com',
+    role: UserRole.STAFF,
+    departmentId: '4',
+    isActive: true,
+    createdAt: new Date('2024-04-20'),
+  },
+  {
+    id: '25',
+    name: 'Phạm Thị Hồng',
+    email: 'hong.pham@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-05-01'),
+  },
+  {
+    id: '26',
+    name: 'Võ Văn Bình',
+    email: 'binh.vo@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: true,
+    createdAt: new Date('2024-05-05'),
+  },
+  {
+    id: '27',
+    name: 'Đặng Thị Kim',
+    email: 'kim.dang@company.com',
+    role: UserRole.STAFF,
+    departmentId: '2',
+    isActive: true,
+    createdAt: new Date('2024-05-10'),
+  },
+  {
+    id: '28',
+    name: 'Bùi Văn Tùng',
+    email: 'tung.bui@company.com',
+    role: UserRole.STAFF,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-05-15'),
+  },
+  {
+    id: '29',
+    name: 'Ngô Thị Dung',
+    email: 'dung.ngo@company.com',
+    role: UserRole.STAFF,
+    departmentId: '4',
+    isActive: false,
+    createdAt: new Date('2024-05-20'),
+  },
+  {
+    id: '30',
+    name: 'Trương Văn An',
+    email: 'an.truong@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-06-01'),
+  },
+  {
+    id: '31',
+    name: 'Đinh Thị Loan',
+    email: 'loan.dinh@company.com',
+    role: UserRole.STAFF,
+    departmentId: '1',
+    isActive: true,
+    createdAt: new Date('2024-06-05'),
+  },
+  {
+    id: '32',
+    name: 'Phan Văn Cường',
+    email: 'cuong.phan@company.com',
+    role: UserRole.STAFF,
+    departmentId: '2',
+    isActive: true,
+    createdAt: new Date('2024-06-10'),
+  },
+  {
+    id: '33',
+    name: 'Dương Thị Hằng',
+    email: 'hang.duong@company.com',
+    role: UserRole.STAFF,
+    departmentId: '5',
+    isActive: true,
+    createdAt: new Date('2024-06-15'),
+  },
+  {
+    id: '34',
+    name: 'Lý Văn Đạt',
+    email: 'dat.ly@company.com',
+    role: UserRole.STAFF,
+    departmentId: '4',
+    isActive: true,
+    createdAt: new Date('2024-06-20'),
+  },
+  {
+    id: '35',
+    name: 'Vũ Thị Trang',
+    email: 'trang.vu@company.com',
+    role: UserRole.STAFF,
+    departmentId: '3',
+    isActive: true,
+    createdAt: new Date('2024-07-01'),
+  },
 ];
 
-// Mock Departments
+// Mock Departments - Extended data for pagination demo
 export const mockDepartments: Department[] = [
   {
     id: '1',
@@ -79,25 +349,105 @@ export const mockDepartments: Department[] = [
     description: 'Phòng Quản lý Nhân sự',
     managerId: '4',
     isActive: true,
-    employeeCount: 8,
+    employeeCount: 12,
   },
   {
     id: '3',
     name: 'Phòng Kế toán',
     description: 'Phòng Kế toán - Tài chính',
+    managerId: '9',
     isActive: true,
-    employeeCount: 6,
+    employeeCount: 8,
   },
   {
     id: '4',
     name: 'Phòng Kinh doanh',
-    description: 'Phòng Kinh doanh',
+    description: 'Phòng Kinh doanh và Marketing',
+    managerId: '13',
     isActive: true,
     employeeCount: 20,
   },
+  {
+    id: '5',
+    name: 'Phòng Hành chính',
+    description: 'Phòng Hành chính - Tổng hợp',
+    managerId: '18',
+    isActive: true,
+    employeeCount: 10,
+  },
+  {
+    id: '6',
+    name: 'Phòng Kỹ thuật',
+    description: 'Phòng Kỹ thuật và Bảo trì',
+    isActive: true,
+    employeeCount: 14,
+  },
+  {
+    id: '7',
+    name: 'Phòng Dự án',
+    description: 'Phòng Quản lý Dự án',
+    isActive: true,
+    employeeCount: 18,
+  },
+  {
+    id: '8',
+    name: 'Phòng Đào tạo',
+    description: 'Phòng Đào tạo và Phát triển',
+    isActive: true,
+    employeeCount: 6,
+  },
+  {
+    id: '9',
+    name: 'Phòng QA/QC',
+    description: 'Phòng Kiểm soát Chất lượng',
+    isActive: true,
+    employeeCount: 9,
+  },
+  {
+    id: '10',
+    name: 'Phòng R&D',
+    description: 'Phòng Nghiên cứu và Phát triển',
+    isActive: true,
+    employeeCount: 11,
+  },
+  {
+    id: '11',
+    name: 'Phòng Chăm sóc Khách hàng',
+    description: 'Phòng Chăm sóc và Hỗ trợ Khách hàng',
+    isActive: true,
+    employeeCount: 13,
+  },
+  {
+    id: '12',
+    name: 'Phòng Pháp chế',
+    description: 'Phòng Pháp chế và Tuân thủ',
+    isActive: true,
+    employeeCount: 5,
+  },
+  {
+    id: '13',
+    name: 'Phòng Logistics',
+    description: 'Phòng Logistics và Vận hành',
+    isActive: false,
+    employeeCount: 16,
+  },
+  {
+    id: '14',
+    name: 'Phòng Truyền thông',
+    description: 'Phòng Truyền thông Nội bộ',
+    isActive: true,
+    employeeCount: 7,
+  },
+  {
+    id: '15',
+    name: 'Phòng An ninh',
+    description: 'Phòng An ninh và Bảo vệ',
+    isActive: true,
+    employeeCount: 8,
+  },
 ];
 
-// Mock Asset Types
+// Mock Asset Types - Extended data
 export const mockAssetTypes: AssetType[] = [
   {
     id: '1',
@@ -127,6 +477,66 @@ export const mockAssetTypes: AssetType[] = [
     id: '5',
     name: 'Điện thoại',
     description: 'Điện thoại di động',
+    isActive: true,
+  },
+  {
+    id: '6',
+    name: 'Máy in',
+    description: 'Máy in văn phòng',
+    isActive: true,
+  },
+  {
+    id: '7',
+    name: 'Máy chiếu',
+    description: 'Máy chiếu projector',
+    isActive: true,
+  },
+  {
+    id: '8',
+    name: 'Bàn phím',
+    description: 'Bàn phím máy tính',
+    isActive: true,
+  },
+  {
+    id: '9',
+    name: 'Chuột',
+    description: 'Chuột máy tính',
+    isActive: true,
+  },
+  {
+    id: '10',
+    name: 'Tủ hồ sơ',
+    description: 'Tủ đựng hồ sơ văn phòng',
+    isActive: true,
+  },
+  {
+    id: '11',
+    name: 'Máy scan',
+    description: 'Máy quét tài liệu',
+    isActive: true,
+  },
+  {
+    id: '12',
+    name: 'Router',
+    description: 'Thiết bị mạng Router',
+    isActive: true,
+  },
+  {
+    id: '13',
+    name: 'Switch',
+    description: 'Thiết bị mạng Switch',
+    isActive: false,
+  },
+  {
+    id: '14',
+    name: 'UPS',
+    description: 'Bộ lưu điện',
+    isActive: true,
+  },
+  {
+    id: '15',
+    name: 'Điều hòa',
+    description: 'Máy điều hòa không khí',
     isActive: true,
   },
 ];
@@ -251,6 +661,135 @@ export const mockAssets: Asset[] = [
     createdAt: new Date('2022-12-10'),
   },
 ];
+
+// Generate more assets for pagination demo
+const generateMoreAssets = (): Asset[] => {
+  const baseAssets = mockAssets;
+  const moreAssets: Asset[] = [];
+  let assetId = 9;
+  
+  const laptops = ['ASUS ZenBook 14', 'Acer Swift 3', 'MSI Prestige 14', 'Surface Laptop 5', 'LG Gram 17'];
+  const monitors = ['LG 32\" 4K', 'Samsung Odyssey G7', 'BenQ Designer PD2700', 'ASUS ProArt PA278', 'ViewSonic VP2768'];
+  
+  // Add 20 more laptops
+  for (let i = 0; i < 20; i++) {
+    const deptId = String((i % 5) + 1);
+    const userId = String((i % 20) + 6);
+    const isInUse = i % 3 !== 0;
+    
+    moreAssets.push({
+      id: String(assetId++),
+      code: `LT-${String(i + 5).padStart(3, '0')}`,
+      name: laptops[i % laptops.length],
+      typeId: '1',
+      departmentId: deptId,
+      assignedTo: isInUse ? userId : undefined,
+      purchaseDate: new Date(2024, (i % 12), 15),
+      value: 20000000 + (i * 200000),
+      status: isInUse ? AssetStatus.IN_USE : AssetStatus.IN_STOCK,
+      condition: i % 8 === 0 ? AssetCondition.NEEDS_REPAIR : AssetCondition.GOOD,
+      description: `Laptop ${laptops[i % laptops.length]}`,
+      createdBy: '1',
+      createdAt: new Date(2024, (i % 12), 15),
+    });
+  }
+  
+  // Add 15 more monitors
+  for (let i = 0; i < 15; i++) {
+    const deptId = String((i % 5) + 1);
+    const userId = String((i % 20) + 6);
+    const isInUse = i % 2 === 0;
+    
+    moreAssets.push({
+      id: String(assetId++),
+      code: `MH-${String(i + 2).padStart(3, '0')}`,
+      name: monitors[i % monitors.length],
+      typeId: '2',
+      departmentId: deptId,
+      assignedTo: isInUse ? userId : undefined,
+      purchaseDate: new Date(2024, (i % 12), 10),
+      value: 6000000 + (i * 300000),
+      status: isInUse ? AssetStatus.IN_USE : AssetStatus.IN_STOCK,
+      condition: AssetCondition.GOOD,
+      description: `Màn hình ${monitors[i % monitors.length]}`,
+      createdBy: '1',
+      createdAt: new Date(2024, (i % 12), 10),
+    });
+  }
+  
+  // Add 10 more desks
+  for (let i = 0; i < 10; i++) {
+    const deptId = String((i % 5) + 1);
+    const userId = String((i % 20) + 6);
+    
+    moreAssets.push({
+      id: String(assetId++),
+      code: `BAN-${String(i + 2).padStart(3, '0')}`,
+      name: 'Bàn làm việc hiện đại',
+      typeId: '3',
+      departmentId: deptId,
+      assignedTo: userId,
+      purchaseDate: new Date(2024, (i % 12), 5),
+      value: 4500000 + (i * 100000),
+      status: AssetStatus.IN_USE,
+      condition: AssetCondition.GOOD,
+      description: 'Bàn làm việc hiện đại',
+      createdBy: '1',
+      createdAt: new Date(2024, (i % 12), 5),
+    });
+  }
+  
+  // Add 10 more chairs  
+  for (let i = 0; i < 10; i++) {
+    const deptId = String((i % 5) + 1);
+    const isInUse = i % 2 === 0;
+    const userId = String((i % 20) + 6);
+    
+    moreAssets.push({
+      id: String(assetId++),
+      code: `GHE-${String(i + 2).padStart(3, '0')}`,
+      name: 'Ghế Ergohuman V2',
+      typeId: '4',
+      departmentId: deptId,
+      assignedTo: isInUse ? userId : undefined,
+      purchaseDate: new Date(2024, (i % 12), 1),
+      value: 9000000 + (i * 200000),
+      status: isInUse ? AssetStatus.IN_USE : AssetStatus.IN_STOCK,
+      condition: AssetCondition.GOOD,
+      description: 'Ghế văn phòng Ergohuman',
+      createdBy: '1',
+      createdAt: new Date(2024, (i % 12), 1),
+    });
+  }
+  
+  // Add 12 phones
+  for (let i = 0; i < 12; i++) {
+    const deptId = String((i % 5) + 1);
+    const userId = String((i % 20) + 6);
+    const isInUse = i % 3 !== 1;
+    
+    moreAssets.push({
+      id: String(assetId++),
+      code: `DT-${String(i + 2).padStart(3, '0')}`,
+      name: i % 2 === 0 ? 'Samsung Galaxy S23' : 'iPhone 15 Pro',
+      typeId: '5',
+      departmentId: deptId,
+      assignedTo: isInUse ? userId : undefined,
+      purchaseDate: new Date(2024, (i % 12), 20),
+      value: 18000000 + (i * 500000),
+      status: isInUse ? AssetStatus.IN_USE : AssetStatus.IN_STOCK,
+      condition: AssetCondition.GOOD,
+      description: 'Điện thoại công ty',
+      createdBy: '1',
+      createdAt: new Date(2024, (i % 12), 20),
+    });
+  }
+  
+  return [...baseAssets, ...moreAssets];
+};
+
+// Replace original mockAssets with extended version
+mockAssets.splice(0, mockAssets.length, ...generateMoreAssets());
 
 // Mock Asset History
 export const mockAssetHistory: AssetHistory[] = [

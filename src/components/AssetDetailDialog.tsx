@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Asset } from '../types';
@@ -32,6 +32,9 @@ export function AssetDetailDialog({ asset, open, onOpenChange }: AssetDetailDial
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Chi tiết tài sản</DialogTitle>
+          <DialogDescription>
+            Xem thông tin chi tiết và lịch sử tài sản
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">

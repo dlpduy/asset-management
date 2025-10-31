@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -115,6 +115,9 @@ export function RoleFormDialog({ open, onOpenChange, role }: RoleFormDialogProps
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{role ? 'Chỉnh sửa vai trò' : 'Thêm vai trò mới'}</DialogTitle>
+          <DialogDescription>
+            {role ? 'Cập nhật thông tin vai trò và phân quyền' : 'Tạo vai trò mới và cấu hình quyền hạn'}
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit}>
