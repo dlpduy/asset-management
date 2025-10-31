@@ -72,7 +72,7 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
         toast.error('Vui lòng chọn file ảnh');
         return;
       }
-      
+
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         toast.error('Kích thước ảnh không được vượt quá 5MB');
@@ -80,7 +80,7 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
       }
 
       setFormData({ ...formData, image: file });
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -119,7 +119,7 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
       // Create new asset - status = IN_STOCK, add history entry "CREATED"
       toast.success('Tài sản đã được tạo thành công với trạng thái "Trong kho"');
     }
-    
+
     onOpenChange(false);
   };
 
@@ -129,8 +129,8 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
         <DialogHeader>
           <DialogTitle>{asset ? 'Chỉnh sửa tài sản' : 'Thêm tài sản mới'}</DialogTitle>
           <DialogDescription>
-            {asset 
-              ? 'Cập nhật thông tin tài sản trong hệ thống' 
+            {asset
+              ? 'Cập nhật thông tin tài sản trong hệ thống'
               : 'Điền thông tin để tạo tài sản mới trong hệ thống'
             }
           </DialogDescription>
@@ -222,7 +222,7 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
               />
             </div>
 
-            <div className="col-span-2 space-y-2">
+            {/* <div className="col-span-2 space-y-2">
               <Label htmlFor="image">Hình ảnh</Label>
               <Input
                 id="image"
@@ -239,7 +239,7 @@ export function AssetFormDialog({ open, onOpenChange, asset }: AssetFormDialogPr
                   />
                 </div>
               )}
-            </div>
+            </div> */}
 
             <div className="col-span-2 space-y-2">
               <Label htmlFor="description">Mô tả</Label>

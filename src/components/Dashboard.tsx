@@ -1,10 +1,10 @@
 import { Package, Users, Building2, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
-import { 
-  mockAssets, 
-  mockUsers, 
-  mockDepartments 
+import {
+  mockAssets,
+  mockUsers,
+  mockDepartments
 } from '../lib/mockData';
 import { AssetStatus, UserRole } from '../types';
 import { formatCurrency, getStatusLabel, getStatusColor } from '../lib/utils';
@@ -25,14 +25,14 @@ import {
 
 export function Dashboard() {
   const { currentUser } = useAuth();
-  
+
   // Filter assets based on user role
   const userAssets = !currentUser ? [] :
     currentUser.role === UserRole.ADMIN
-    ? mockAssets
-    : currentUser.role === UserRole.MANAGER
-    ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
-    : mockAssets.filter(a => a.assignedTo === currentUser.id);
+      ? mockAssets
+      : currentUser.role === UserRole.MANAGER
+        ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
+        : mockAssets.filter(a => a.assignedTo === currentUser.id);
 
   const totalAssets = userAssets.length;
   const totalValue = userAssets.reduce((sum, asset) => sum + asset.value, 0);
@@ -79,7 +79,7 @@ export function Dashboard() {
           <CardContent>
             <div className="text-2xl text-gray-900 dark:text-gray-50">{totalAssets}</div>
             <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-              {currentUser.role === UserRole.STAFF ? 'Được giao cho bạn' : 'Trong hệ thống'}
+              {currentUser?.role === UserRole.STAFF ? 'Được giao cho bạn' : 'Trong hệ thống'}
             </p>
           </CardContent>
         </Card>
@@ -121,7 +121,7 @@ export function Dashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Department Stats */}
-        {(currentUser.role === UserRole.ADMIN || currentUser.role === UserRole.MANAGER) && (
+        {(currentUser?.role === UserRole.ADMIN || currentUser?.role === UserRole.MANAGER) && (
           <Card>
             <CardHeader>
               <CardTitle className="text-gray-900 dark:text-gray-50">Tài sản theo phòng ban</CardTitle>
@@ -180,7 +180,7 @@ export function Dashboard() {
             {recentAssets.map((asset) => {
               const assignedUser = mockUsers.find(u => u.id === asset.assignedTo);
               const department = mockDepartments.find(d => d.id === asset.departmentId);
-              
+
               return (
                 <div key={asset.id} className="flex items-center justify-between py-3 border-b last:border-b-0 dark:border-gray-800">
                   <div className="flex-1">

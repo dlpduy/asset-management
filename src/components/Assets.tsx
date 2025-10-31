@@ -42,16 +42,17 @@ import { AssetFormDialog } from './AssetFormDialog';
 import { AssetDetailDialog } from './AssetDetailDialog';
 import { AssignAssetDialog } from './AssignAssetDialog';
 import { EvaluateAssetDialog } from './EvaluateAssetDialog';
-import { 
-  mockAssets, 
-  mockAssetTypes, 
-  mockDepartments, 
+import {
+  mockAssets,
+  mockAssetTypes,
+  mockDepartments,
   mockUsers
 } from '../lib/mockData';
 import { Asset, UserRole, AssetStatus } from '../types';
 import { formatCurrency, formatDate, getStatusLabel, getStatusColor } from '../lib/utils';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner@2.0.3';
+import { getAllAssetTypesAPI } from '../services/assetTypeAPI';
 
 export function Assets() {
   const { currentUser } = useAuth();
@@ -69,13 +70,15 @@ export function Assets() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+
+
   // Filter assets based on user role
   let filteredAssets = !currentUser ? [] :
     currentUser.role === UserRole.ADMIN
-    ? mockAssets
-    : currentUser.role === UserRole.MANAGER
-    ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
-    : mockAssets.filter(a => a.assignedTo === currentUser.id);
+      ? mockAssets
+      : currentUser.role === UserRole.MANAGER
+        ? mockAssets.filter(a => a.departmentId === currentUser.departmentId)
+        : mockAssets.filter(a => a.assignedTo === currentUser.id);
 
   // Apply filters
   if (searchTerm) {
@@ -142,7 +145,7 @@ export function Assets() {
         setDeleteDialogOpen(false);
         return;
       }
-      
+
       // Here you would normally delete from backend
       toast.success(`Đã xóa tài sản ${selectedAsset.code} thành công`);
       setDeleteDialogOpen(false);
@@ -331,7 +334,7 @@ export function Assets() {
                                     <Button
                                       variant="ghost"
                                       size="icon"
-                                      onClick={() => {/* Handle reclaim */}}
+                                      onClick={() => {/* Handle reclaim */ }}
                                       title="Thu hồi"
                                       className="hover:bg-orange-50 hover:text-orange-600 dark:hover:bg-orange-900/30 dark:hover:text-orange-400 transition-colors"
                                     >
@@ -373,12 +376,12 @@ export function Assets() {
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
-                    <PaginationPrevious 
+                    <PaginationPrevious
                       onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                       className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30'}
                     />
                   </PaginationItem>
-                  
+
                   {[...Array(totalPages)].map((_, i) => {
                     const page = i + 1;
                     if (
@@ -407,7 +410,7 @@ export function Assets() {
                   })}
 
                   <PaginationItem>
-                    <PaginationNext 
+                    <PaginationNext
                       onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                       className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30'}
                     />
@@ -451,14 +454,14 @@ export function Assets() {
           <AlertDialogHeader>
             <AlertDialogTitle>Xác nhận xóa tài sản</AlertDialogTitle>
             <AlertDialogDescription>
-              Bạn có chắc chắn muốn xóa tài sản <span className="font-semibold text-gray-900">{selectedAsset?.code} - {selectedAsset?.name}</span>? 
+              Bạn có chắc chắn muốn xóa tài sản <span className="font-semibold text-gray-900">{selectedAsset?.code} - {selectedAsset?.name}</span>?
               <br />
               <span className="text-red-600">Hành động này không thể hoàn tác.</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Hủy</AlertDialogCancel>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={confirmDelete}
               className="bg-red-600 hover:bg-red-700"
             >

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Plus, Search, Edit, Trash2, ArrowUpDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -42,6 +42,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from './ui/alert-dialog';
+import { createAssetTypeAPI, deleteAssetTypeAPI, getAllAssetTypesAPI, updateAssetTypeAPI } from '../services/assetTypeAPI';
 
 export function AssetTypes() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -54,27 +55,64 @@ export function AssetTypes() {
   const [sortBy, setSortBy] = useState<'name' | 'description'>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
+  const [checkAction, setCheckAction] = useState(false);
   const itemsPerPage = 10;
 
-  // Load asset types from localStorage or use mock data
+
+
   useEffect(() => {
-    const savedAssetTypes = localStorage.getItem('assetTypes');
-    if (savedAssetTypes) {
-      try {
-        setAssetTypes(JSON.parse(savedAssetTypes));
-      } catch (error) {
-        console.error('Failed to load asset types:', error);
-        setAssetTypes(mockAssetTypes);
+    fetchAssetTypes();
+  }, [assetTypes, checkAction]);
+
+
+  // Fetch asset types from API
+  const fetchAssetTypes = useCallback(async () => {
+    try {
+      const response: any = await getAllAssetTypesAPI();
+      if (response.message.includes('successfully')) {
+        setAssetTypes(response.data);
       }
-    } else {
-      setAssetTypes(mockAssetTypes);
+
+    } catch (error) {
+      console.error('Error fetching asset types:', error);
     }
   }, []);
+  // Save asset type via API
+  const createAssetType = async (data: AssetType) => {
+    try {
+      const response: any = await createAssetTypeAPI(data);
+      if (response.message.includes('successfully')) {
+        toast.success('Đã tạo loại tài sản mới');
+        setCheckAction(!checkAction);
+      }
+    } catch (error) {
+      console.error('Error creating asset type:', error);
+    }
+  }
+  // Update asset type via API
+  const updateAssetType = async (id: number, data: AssetType) => {
+    try {
+      const response: any = await updateAssetTypeAPI(id, data);
+      if (response.message.includes('successfully')) {
+        toast.success('Đã cập nhật loại tài sản');
+        setCheckAction(!checkAction);
+      }
+    } catch (error) {
+      console.error('Error updating asset type:', error);
+    }
+  };
 
-  // Save asset types to localStorage whenever they change
-  const saveAssetTypes = (types: AssetType[]) => {
-    setAssetTypes(types);
-    localStorage.setItem('assetTypes', JSON.stringify(types));
+  // Delete asset type via API
+  const deleteAssetType = async (id: number) => {
+    try {
+      const response: any = await deleteAssetTypeAPI(id);
+      if (response.message.includes('successfully')) {
+        toast.success('Đã xóa loại tài sản');
+        setCheckAction(!checkAction);
+      }
+    } catch (error) {
+      console.error('Error deleting asset type:', error);
+    }
   };
 
   // Apply filters
@@ -97,7 +135,7 @@ export function AssetTypes() {
   filteredAssetTypes = [...filteredAssetTypes].sort((a, b) => {
     const aValue = a[sortBy].toLowerCase();
     const bValue = b[sortBy].toLowerCase();
-    
+
     if (sortOrder === 'asc') {
       return aValue.localeCompare(bValue);
     } else {
@@ -133,11 +171,8 @@ export function AssetTypes() {
 
   const confirmDelete = () => {
     if (assetTypeToDelete) {
-      const updatedAssetTypes = assetTypes.filter(
-        type => type.id !== assetTypeToDelete.id
-      );
-      saveAssetTypes(updatedAssetTypes);
-      toast.success(`Đã xóa loại tài sản "${assetTypeToDelete.name}"`);
+
+      deleteAssetType(assetTypeToDelete.id);
       setDeleteDialogOpen(false);
       setAssetTypeToDelete(null);
     }
@@ -146,24 +181,29 @@ export function AssetTypes() {
   const handleSave = (assetTypeData: Partial<AssetType>) => {
     if (assetTypeData.id) {
       // Update existing
-      const updatedAssetTypes = assetTypes.map(type =>
+      const updatedList = assetTypes.map(type =>
         type.id === assetTypeData.id
           ? { ...type, ...assetTypeData }
           : type
       );
-      saveAssetTypes(updatedAssetTypes);
+      // update on server
+      updateAssetType(assetTypeData.id, assetTypeData as AssetType);
+      // setAssetTypes(updatedList);
       toast.success('Đã cập nhật loại tài sản');
     } else {
       // Add new
       const newAssetType: AssetType = {
-        id: `at-${Date.now()}`,
+        id: 0,
         name: assetTypeData.name!,
         description: assetTypeData.description!,
         isActive: assetTypeData.isActive ?? true,
       };
-      saveAssetTypes([...assetTypes, newAssetType]);
+      // // optimistically update UI and persist on server
+      // setAssetTypes([...assetTypes, newAssetType]);
+      createAssetType(newAssetType);
       toast.success('Đã thêm loại tài sản mới');
     }
+    console.log('Saved asset type data:', assetTypeData);
   };
 
   return (
@@ -192,7 +232,7 @@ export function AssetTypes() {
                 className="pl-10"
               />
             </div>
-            
+
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger>
                 <SelectValue placeholder="Trạng thái" />
@@ -308,12 +348,12 @@ export function AssetTypes() {
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
-                    <PaginationPrevious 
+                    <PaginationPrevious
                       onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                       className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30'}
                     />
                   </PaginationItem>
-                  
+
                   {[...Array(totalPages)].map((_, i) => {
                     const page = i + 1;
                     if (
@@ -342,7 +382,7 @@ export function AssetTypes() {
                   })}
 
                   <PaginationItem>
-                    <PaginationNext 
+                    <PaginationNext
                       onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                       className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/30'}
                     />

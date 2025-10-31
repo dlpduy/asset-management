@@ -1,9 +1,9 @@
-import { 
-  User, 
-  Department, 
-  AssetType, 
-  Asset, 
-  AssetHistory, 
+import {
+  User,
+  Department,
+  AssetType,
+  Asset,
+  AssetHistory,
   Notification,
   UserRole,
   AssetStatus,
@@ -337,7 +337,7 @@ export const mockUsers: User[] = [
 export const mockDepartments: Department[] = [
   {
     id: '1',
-    name: 'Phòng IT',
+    name: 'IT',
     description: 'Phòng Công nghệ Thông tin',
     managerId: '2',
     isActive: true,
@@ -345,7 +345,7 @@ export const mockDepartments: Department[] = [
   },
   {
     id: '2',
-    name: 'Phòng Nhân sự',
+    name: 'Nhân sự',
     description: 'Phòng Quản lý Nhân sự',
     managerId: '4',
     isActive: true,
@@ -353,7 +353,7 @@ export const mockDepartments: Department[] = [
   },
   {
     id: '3',
-    name: 'Phòng Kế toán',
+    name: 'Kế toán',
     description: 'Phòng Kế toán - Tài chính',
     managerId: '9',
     isActive: true,
@@ -361,7 +361,7 @@ export const mockDepartments: Department[] = [
   },
   {
     id: '4',
-    name: 'Phòng Kinh doanh',
+    name: 'Kinh doanh',
     description: 'Phòng Kinh doanh và Marketing',
     managerId: '13',
     isActive: true,
@@ -369,172 +369,102 @@ export const mockDepartments: Department[] = [
   },
   {
     id: '5',
-    name: 'Phòng Hành chính',
+    name: 'Hành chính',
     description: 'Phòng Hành chính - Tổng hợp',
     managerId: '18',
     isActive: true,
     employeeCount: 10,
-  },
-  {
-    id: '6',
-    name: 'Phòng Kỹ thuật',
-    description: 'Phòng Kỹ thuật và Bảo trì',
-    isActive: true,
-    employeeCount: 14,
-  },
-  {
-    id: '7',
-    name: 'Phòng Dự án',
-    description: 'Phòng Quản lý Dự án',
-    isActive: true,
-    employeeCount: 18,
-  },
-  {
-    id: '8',
-    name: 'Phòng Đào tạo',
-    description: 'Phòng Đào tạo và Phát triển',
-    isActive: true,
-    employeeCount: 6,
-  },
-  {
-    id: '9',
-    name: 'Phòng QA/QC',
-    description: 'Phòng Kiểm soát Chất lượng',
-    isActive: true,
-    employeeCount: 9,
-  },
-  {
-    id: '10',
-    name: 'Phòng R&D',
-    description: 'Phòng Nghiên cứu và Phát triển',
-    isActive: true,
-    employeeCount: 11,
-  },
-  {
-    id: '11',
-    name: 'Phòng Chăm sóc Khách hàng',
-    description: 'Phòng Chăm sóc và Hỗ trợ Khách hàng',
-    isActive: true,
-    employeeCount: 13,
-  },
-  {
-    id: '12',
-    name: 'Phòng Pháp chế',
-    description: 'Phòng Pháp chế và Tuân thủ',
-    isActive: true,
-    employeeCount: 5,
-  },
-  {
-    id: '13',
-    name: 'Phòng Logistics',
-    description: 'Phòng Logistics và Vận hành',
-    isActive: false,
-    employeeCount: 16,
-  },
-  {
-    id: '14',
-    name: 'Phòng Truyền thông',
-    description: 'Phòng Truyền thông Nội bộ',
-    isActive: true,
-    employeeCount: 7,
-  },
-  {
-    id: '15',
-    name: 'Phòng An ninh',
-    description: 'Phòng An ninh và Bảo vệ',
-    isActive: true,
-    employeeCount: 8,
-  },
+  }
 ];
 
 // Mock Asset Types - Extended data
 export const mockAssetTypes: AssetType[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Laptop',
     description: 'Máy tính xách tay',
     isActive: true,
   },
   {
-    id: '2',
+    id: 2,
     name: 'Màn hình',
     description: 'Màn hình máy tính',
     isActive: true,
   },
   {
-    id: '3',
+    id: 3,
     name: 'Bàn làm việc',
     description: 'Bàn văn phòng',
     isActive: true,
   },
   {
-    id: '4',
+    id: 4,
     name: 'Ghế văn phòng',
     description: 'Ghế làm việc',
     isActive: true,
   },
   {
-    id: '5',
+    id: 5,
     name: 'Điện thoại',
     description: 'Điện thoại di động',
     isActive: true,
   },
   {
-    id: '6',
+    id: 6,
     name: 'Máy in',
     description: 'Máy in văn phòng',
     isActive: true,
   },
   {
-    id: '7',
+    id: 7,
     name: 'Máy chiếu',
     description: 'Máy chiếu projector',
     isActive: true,
   },
   {
-    id: '8',
+    id: 8,
     name: 'Bàn phím',
     description: 'Bàn phím máy tính',
     isActive: true,
   },
   {
-    id: '9',
+    id: 9,
     name: 'Chuột',
     description: 'Chuột máy tính',
     isActive: true,
   },
   {
-    id: '10',
+    id: 10,
     name: 'Tủ hồ sơ',
     description: 'Tủ đựng hồ sơ văn phòng',
     isActive: true,
   },
   {
-    id: '11',
+    id: 11,
     name: 'Máy scan',
     description: 'Máy quét tài liệu',
     isActive: true,
   },
   {
-    id: '12',
+    id: 12,
     name: 'Router',
     description: 'Thiết bị mạng Router',
     isActive: true,
   },
   {
-    id: '13',
+    id: 13,
     name: 'Switch',
     description: 'Thiết bị mạng Switch',
     isActive: false,
   },
   {
-    id: '14',
+    id: 14,
     name: 'UPS',
     description: 'Bộ lưu điện',
     isActive: true,
   },
   {
-    id: '15',
+    id: 15,
     name: 'Điều hòa',
     description: 'Máy điều hòa không khí',
     isActive: true,
@@ -667,16 +597,16 @@ const generateMoreAssets = (): Asset[] => {
   const baseAssets = mockAssets;
   const moreAssets: Asset[] = [];
   let assetId = 9;
-  
+
   const laptops = ['ASUS ZenBook 14', 'Acer Swift 3', 'MSI Prestige 14', 'Surface Laptop 5', 'LG Gram 17'];
   const monitors = ['LG 32\" 4K', 'Samsung Odyssey G7', 'BenQ Designer PD2700', 'ASUS ProArt PA278', 'ViewSonic VP2768'];
-  
+
   // Add 20 more laptops
   for (let i = 0; i < 20; i++) {
     const deptId = String((i % 5) + 1);
     const userId = String((i % 20) + 6);
     const isInUse = i % 3 !== 0;
-    
+
     moreAssets.push({
       id: String(assetId++),
       code: `LT-${String(i + 5).padStart(3, '0')}`,
@@ -693,13 +623,13 @@ const generateMoreAssets = (): Asset[] => {
       createdAt: new Date(2024, (i % 12), 15),
     });
   }
-  
+
   // Add 15 more monitors
   for (let i = 0; i < 15; i++) {
     const deptId = String((i % 5) + 1);
     const userId = String((i % 20) + 6);
     const isInUse = i % 2 === 0;
-    
+
     moreAssets.push({
       id: String(assetId++),
       code: `MH-${String(i + 2).padStart(3, '0')}`,
@@ -716,12 +646,12 @@ const generateMoreAssets = (): Asset[] => {
       createdAt: new Date(2024, (i % 12), 10),
     });
   }
-  
+
   // Add 10 more desks
   for (let i = 0; i < 10; i++) {
     const deptId = String((i % 5) + 1);
     const userId = String((i % 20) + 6);
-    
+
     moreAssets.push({
       id: String(assetId++),
       code: `BAN-${String(i + 2).padStart(3, '0')}`,
@@ -738,13 +668,13 @@ const generateMoreAssets = (): Asset[] => {
       createdAt: new Date(2024, (i % 12), 5),
     });
   }
-  
+
   // Add 10 more chairs  
   for (let i = 0; i < 10; i++) {
     const deptId = String((i % 5) + 1);
     const isInUse = i % 2 === 0;
     const userId = String((i % 20) + 6);
-    
+
     moreAssets.push({
       id: String(assetId++),
       code: `GHE-${String(i + 2).padStart(3, '0')}`,
@@ -761,13 +691,13 @@ const generateMoreAssets = (): Asset[] => {
       createdAt: new Date(2024, (i % 12), 1),
     });
   }
-  
+
   // Add 12 phones
   for (let i = 0; i < 12; i++) {
     const deptId = String((i % 5) + 1);
     const userId = String((i % 20) + 6);
     const isInUse = i % 3 !== 1;
-    
+
     moreAssets.push({
       id: String(assetId++),
       code: `DT-${String(i + 2).padStart(3, '0')}`,
@@ -784,7 +714,7 @@ const generateMoreAssets = (): Asset[] => {
       createdAt: new Date(2024, (i % 12), 20),
     });
   }
-  
+
   return [...baseAssets, ...moreAssets];
 };
 
@@ -874,7 +804,7 @@ export const mockPermissions: Permission[] = [
   { id: 'p2', code: 'users.create', name: 'Tạo người dùng', category: PermissionCategory.USERS, description: 'Tạo người dùng mới' },
   { id: 'p3', code: 'users.edit', name: 'Sửa người dùng', category: PermissionCategory.USERS, description: 'Chỉnh sửa thông tin người dùng' },
   { id: 'p4', code: 'users.deactivate', name: 'Vô hiệu hóa người dùng', category: PermissionCategory.USERS, description: 'Vô hiệu hóa tài khoản người dùng' },
-  
+
   // Asset permissions
   { id: 'p5', code: 'assets.view', name: 'Xem tài sản', category: PermissionCategory.ASSETS, description: 'Xem danh sách tài sản' },
   { id: 'p6', code: 'assets.create', name: 'Tạo tài sản', category: PermissionCategory.ASSETS, description: 'Thêm tài sản mới' },
@@ -882,16 +812,16 @@ export const mockPermissions: Permission[] = [
   { id: 'p8', code: 'assets.assign', name: 'Gán tài sản', category: PermissionCategory.ASSETS, description: 'Gán tài sản cho nhân viên' },
   { id: 'p9', code: 'assets.reclaim', name: 'Thu hồi tài sản', category: PermissionCategory.ASSETS, description: 'Thu hồi tài sản từ nhân viên' },
   { id: 'p10', code: 'assets.evaluate', name: 'Đánh giá tài sản', category: PermissionCategory.ASSETS, description: 'Đánh giá tình trạng tài sản' },
-  
+
   // Department permissions
   { id: 'p11', code: 'departments.view', name: 'Xem phòng ban', category: PermissionCategory.DEPARTMENTS, description: 'Xem danh sách phòng ban' },
   { id: 'p12', code: 'departments.create', name: 'Tạo phòng ban', category: PermissionCategory.DEPARTMENTS, description: 'Tạo phòng ban mới' },
   { id: 'p13', code: 'departments.edit', name: 'Sửa phòng ban', category: PermissionCategory.DEPARTMENTS, description: 'Chỉnh sửa thông tin phòng ban' },
-  
+
   // Report permissions
   { id: 'p14', code: 'reports.view', name: 'Xem báo cáo', category: PermissionCategory.REPORTS, description: 'Xem báo cáo thống kê' },
   { id: 'p15', code: 'reports.export', name: 'Xuất báo cáo', category: PermissionCategory.REPORTS, description: 'Xuất báo cáo CSV' },
-  
+
   // Settings permissions
   { id: 'p16', code: 'settings.manage', name: 'Quản lý cài đặt', category: PermissionCategory.SETTINGS, description: 'Quản lý cài đặt hệ thống' },
   { id: 'p17', code: 'roles.manage', name: 'Quản lý vai trò', category: PermissionCategory.SETTINGS, description: 'Quản lý vai trò và quyền' },
